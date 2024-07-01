@@ -1,8 +1,17 @@
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  // Navigate,
+} from "react-router-dom";
+import Layout from "./layouts/layout";
 function App() {
   return (
-    <>
-      <div className="text-blue-500">Hello</div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout></Layout>} />
+      </Routes>
+    </Router>
   );
 }
 
