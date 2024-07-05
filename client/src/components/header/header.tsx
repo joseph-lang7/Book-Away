@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import AuthButton from "./components/auth-btn";
+import SignInButton from "./components/sign-in-btn";
+import SignOutButton from "./components/sign-out-btn";
+
 import { useAppContext } from "../../contexts/app-context";
 
 const Header = () => {
@@ -15,10 +17,10 @@ const Header = () => {
             <>
               <Link to="/my-bookings">My Bookings</Link>
               <Link to="/my-bookings">My Hotels</Link>
-              <AuthButton content="Sign Out" />
+              <SignOutButton />
             </>
           ) : (
-            <AuthButton content="Sign In" />
+            <SignInButton />
           )}
         </span>
       </div>
