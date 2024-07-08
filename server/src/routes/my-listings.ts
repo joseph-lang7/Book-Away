@@ -23,6 +23,15 @@ router.post(
     body("country").notEmpty().withMessage("Country is required"),
     body("description").notEmpty().withMessage("Description is required"),
     body("type").notEmpty().withMessage("Type is required"),
+    body("starRating").notEmpty().withMessage("Star Rating is required"),
+    body("adultCount")
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Adult Count is required"),
+    body("childCount")
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Child Count is required"),
     body("pricePerNight")
       .notEmpty()
       .isNumeric()

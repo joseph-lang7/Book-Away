@@ -58,3 +58,16 @@ export const validateToken = async () => {
 
   return response.json();
 };
+
+export const addMyListing = async (listingFormData: FormData) => {
+  const response = await fetch(`${API_URL}/api/my-listings`, {
+    method: "POST",
+    credentials: "include",
+    body: listingFormData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add listing");
+  }
+  return response.json();
+};
