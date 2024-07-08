@@ -4,6 +4,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
+import myListingRoutes from "./routes/my-listings";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
@@ -27,6 +28,7 @@ app.use(
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/my-listings", myListingRoutes);
 
 app.listen(3001, () => {
   console.log("Server running on port 3001");

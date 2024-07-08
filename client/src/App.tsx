@@ -7,7 +7,11 @@ import {
 import Layout from "./layouts/layout";
 import Register from "./pages/register";
 import SignIn from "./pages/sign-in";
+import AddListing from "./pages/add-listing";
+import { useAppContext } from "./contexts/app-context";
+
 function App() {
+  const isLoggedIn = useAppContext();
   return (
     <Router>
       <Routes>
@@ -35,6 +39,18 @@ function App() {
             </Layout>
           }
         />
+        {isLoggedIn && (
+          <>
+            <Route
+              path="/add-listing"
+              element={
+                <Layout>
+                  <AddListing />
+                </Layout>
+              }
+            />
+          </>
+        )}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
