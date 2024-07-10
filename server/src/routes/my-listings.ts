@@ -69,4 +69,14 @@ router.post(
     }
   }
 );
+
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const listings = await Listing.find({ userId: req.userId });
+    res.json(listings);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching listings" });
+  }
+});
+
 export default router;

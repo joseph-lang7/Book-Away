@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/register";
 import { SignInFormData } from "./pages/sign-in";
-
+import { ListingType } from "../../server/src/models/listing";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const register = async (formData: RegisterFormData) => {
@@ -69,5 +69,16 @@ export const addMyListing = async (listingFormData: FormData) => {
   if (!response.ok) {
     throw new Error("Failed to add listing");
   }
+  return response.json();
+};
+
+export const fetchMyListings = async (): Promise<ListingType[]> => {
+  const response = await fetch(`${API_URL}/api/my-listings`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching listings");
+  }
+
   return response.json();
 };

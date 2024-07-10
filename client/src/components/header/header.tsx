@@ -29,7 +29,7 @@ const Header = () => {
                 </Link>
                 <Link
                   className="flex items-center text-white px-3 font-bold hover:bg-blue-600 transition-colors"
-                  to="/my-bookings"
+                  to="/my-listings"
                 >
                   My Listings
                 </Link>
