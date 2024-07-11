@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import multer from "multer";
 import cloudinary from "cloudinary";
-import Listing, { ListingType } from "../models/listing";
+import Listing from "../models/listing";
+import { ListingType } from "../../../shared/types";
 import verifyToken from "../middleware/auth";
 import { body } from "express-validator";
 const router = express.Router();

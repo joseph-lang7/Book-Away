@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/register";
 import { SignInFormData } from "./pages/sign-in";
-import { ListingType } from "../../server/src/models/listing";
+import { ListingType } from "../../shared/types";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const register = async (formData: RegisterFormData) => {

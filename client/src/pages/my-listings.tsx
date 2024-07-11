@@ -40,7 +40,10 @@ const MyListings = () => {
       </span>
       <div className="grid grid-cols-1 gap-8">
         {listingData.map((listing) => (
-          <div className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5">
+          <div
+            key={listing._id}
+            className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
+          >
             <h2 className="text-2xl font-bold">{listing.name}</h2>
             <div className="whitespace-pre-line">{listing.description}</div>
             <div className="grid grid-cols-1 2xl:grid-cols-5 gap-2">
