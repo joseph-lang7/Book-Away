@@ -10,6 +10,7 @@ import SignIn from "./pages/sign-in";
 import AddListing from "./pages/add-listing";
 import { useAppContext } from "./contexts/app-context";
 import MyListings from "./pages/my-listings";
+import EditListing from "./pages/edit-listing";
 
 function App() {
   const isLoggedIn = useAppContext();
@@ -59,6 +60,18 @@ function App() {
               element={
                 <Layout>
                   <MyListings />
+                </Layout>
+              }
+            />
+          </>
+        )}
+        {isLoggedIn && (
+          <>
+            <Route
+              path="/edit-listing/:listingId"
+              element={
+                <Layout>
+                  <EditListing />
                 </Layout>
               }
             />

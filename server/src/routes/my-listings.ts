@@ -48,14 +48,7 @@ router.post(
       const imageFiles = req.files as Express.Multer.File[];
       const newListing: ListingType = req.body;
 
-      const uploadPromises = imageFiles.map(async (image) => {
-        const b64 = Buffer.from(image.buffer).toString("base64");
-        let dataURI = "data:" + image.mimetype + ";base64," + b64;
-        const res = await cloudinary.v2.uploader.upload(dataURI);
-        return res.url;
-      });
-
-      const imageUrls = await Promise.all(uploadPromises);
+      const imageUrls = await uploadImages(imageFiles);
       newListing.imageUrls = imageUrls;
       newListing.lastUpdated = new Date();
       newListing.userId = req.userId;
@@ -79,5 +72,67 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching listings" });
   }
 });
+
+router.get("/:id", verifyToken, async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const listing = await Listing.findOne({
+      _id: id,
+      userId: req.userId,
+    });
+    res.json(listing);
+    console.log(listing);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching listings" });
+  }
+});
+
+router.put(
+  "/:listingId",
+  verifyToken,
+  upload.array("imageFiles"),
+  async (req: Request, res: Response) => {
+    try {
+      const updatedListing: ListingType = req.body;
+      updatedListing.lastUpdated = new Date();
+      const listing = await Listing.findOneAndUpdate(
+        {
+          _id: req.params.listingId,
+          userId: req.userId,
+        },
+        updatedListing,
+        {
+          new: true,
+        }
+      );
+      if (!listing) {
+        return res.status(404).json({ message: "Listing not found" });
+      }
+
+      const files = req.files as Express.Multer.File[];
+      const updatedImageUrls = await uploadImages(files);
+
+      listing.imageUrls = [
+        ...updatedImageUrls,
+        ...(updatedListing.imageUrls || []),
+      ];
+      await listing.save();
+      res.status(201).json(listing);
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
+);
+async function uploadImages(imageFiles: Express.Multer.File[]) {
+  const uploadPromises = imageFiles.map(async (image) => {
+    const b64 = Buffer.from(image.buffer).toString("base64");
+    let dataURI = "data:" + image.mimetype + ";base64," + b64;
+    const res = await cloudinary.v2.uploader.upload(dataURI);
+    return res.url;
+  });
+
+  const imageUrls = await Promise.all(uploadPromises);
+  return imageUrls;
+}
 
 export default router;

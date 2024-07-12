@@ -82,3 +82,31 @@ export const fetchMyListings = async (): Promise<ListingType[]> => {
 
   return response.json();
 };
+
+export const fetchMyListingById = async (
+  listingId: string
+): Promise<ListingType> => {
+  const response = await fetch(`${API_URL}/api/my-listings/${listingId}`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching listings");
+  }
+  return response.json();
+};
+
+export const updateMyListingById = async (listingFormData: FormData) => {
+  const response = await fetch(
+    `${API_URL}/api/my-listings/${listingFormData.get("listingId")}`,
+    {
+      method: "PUT",
+      body: listingFormData,
+      credentials: "include",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to update listing");
+  }
+
+  return response.json();
+};
