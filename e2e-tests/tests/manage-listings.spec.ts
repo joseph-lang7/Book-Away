@@ -58,3 +58,21 @@ test("should allow user to view listings", async ({ page }) => {
   await expect(page.getByText("3 Star Rating")).toBeVisible();
   await expect(page.getByRole("link", { name: "Add Listing" })).toBeVisible();
 });
+
+test("should allow user to edit listing", async ({ page }) => {
+  await page.goto(`${UI_URL}my-listings`);
+  await page.getByRole("link", { name: "View Details" }).nth(0).click();
+  await page.waitForSelector('[name="name"]', { state: "attached" });
+  await expect(page.locator('[name="name"]')).toHaveValue("Test Listing");
+  await page.locator('[name="name"]').fill("Test Listing Edited");
+  await page.getByRole("button", { name: "Save Listing" }).click();
+
+  page.waitForLoadState();
+  await page.getByRole("link", { name: "View Details" }).nth(0).click();
+
+  await expect(page.locator('[name="name"]')).toHaveValue(
+    "Test Listing Edited"
+  );
+  await page.locator('[name="name"]').fill("Test Listing");
+  await page.getByRole("button", { name: "Save Listing" }).click();
+});
