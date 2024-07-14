@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/register";
 import { SignInFormData } from "./pages/sign-in";
-import { ListingType } from "../../shared/types";
+import { ListingSearchResponse, ListingType } from "../../shared/types";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const register = async (formData: RegisterFormData) => {
@@ -106,6 +106,35 @@ export const updateMyListingById = async (listingFormData: FormData) => {
   );
   if (!response.ok) {
     throw new Error("Failed to update listing");
+  }
+
+  return response.json();
+};
+
+export type SearchParams = {
+  destination?: string;
+  checkIn?: string;
+  checkOut?: string;
+  adultCount?: string;
+  childCount?: string;
+  page?: string;
+};
+
+export const searchListings = async (
+  searchParams: SearchParams
+): Promise<ListingSearchResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("destination", searchParams.destination || "");
+  queryParams.append("checkIn", searchParams.checkIn || "");
+  queryParams.append("checkOut", searchParams.checkOut || "");
+  queryParams.append("adultCount", searchParams.adultCount || "");
+  queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
+
+  const response = await fetch(`${API_URL}/api/listings/search?${queryParams}`);
+
+  if (!response.ok) {
+    throw new Error("Error fetching listings");
   }
 
   return response.json();
