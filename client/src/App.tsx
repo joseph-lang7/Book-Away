@@ -11,7 +11,7 @@ import AddListing from "./pages/add-listing";
 import { useAppContext } from "./contexts/app-context";
 import MyListings from "./pages/my-listings";
 import EditListing from "./pages/edit-listing";
-
+import Search from "./pages/search";
 function App() {
   const isLoggedIn = useAppContext();
   return (
@@ -22,6 +22,14 @@ function App() {
           element={
             <Layout>
               <p>Home Page</p>
+            </Layout>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <Layout>
+              <Search />
             </Layout>
           }
         />

@@ -14,3 +14,12 @@ export type ListingType = {
   imageUrls: string[];
   lastUpdated: Date;
 };
+
+export type ListingSearchResponse = {
+  data: ListingType[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+};
