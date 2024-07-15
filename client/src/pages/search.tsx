@@ -7,6 +7,7 @@ import Pagination from "../components/pagination/pagination";
 import StarRatingFilter from "../components/star-rating-filter/star-rating-filter";
 import ListingTypesFilter from "../components/listing-types-filter/listing-types-filter";
 import AmenitiesFilter from "../components/amenities-filter/amenities-filter";
+import PriceFilter from "../components/price-filter/price-filter";
 const Search = () => {
   const search = useSearchContext();
   const [page, setPage] = useState<number>(1);
@@ -15,6 +16,7 @@ const Search = () => {
     []
   );
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
 
   const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const starRating = event.target.value;
@@ -53,6 +55,7 @@ const Search = () => {
     stars: selectedStars,
     types: selectedListingTypes,
     amenities: selectedAmenities,
+    maxPrice: selectedPrice?.toString(),
   };
   const { data: listingData } = useQuery(["searchListings", searchParams], () =>
     apiClient.searchListings(searchParams)
@@ -75,6 +78,10 @@ const Search = () => {
           <AmenitiesFilter
             selectedAmenities={selectedAmenities}
             onChange={handleAmenityChange}
+          />
+          <PriceFilter
+            selectedPrice={selectedPrice}
+            onChange={(value?: number) => setSelectedPrice(value)}
           />
         </div>
       </div>
