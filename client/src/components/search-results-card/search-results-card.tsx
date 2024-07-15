@@ -19,8 +19,8 @@ const SearchResultsCard = ({ listing }: Props) => {
         <div>
           <div className="flex items-center">
             <span className="flex">
-              {Array.from({ length: listing.starRating }).map(() => (
-                <AiFillStar className="text-yellow-400" />
+              {Array.from({ length: listing.starRating }).map((_, index) => (
+                <AiFillStar key={index} className="text-yellow-400" />
               ))}
             </span>
             <span className="ml-1 text-sm">{listing.type}</span>
@@ -38,7 +38,10 @@ const SearchResultsCard = ({ listing }: Props) => {
         <div className="grid grid-cols-2 items-end whitespace-nowrap">
           <div className="flex gap-1 items-center">
             {listing.amenities.slice(0, 3).map((amenity) => (
-              <span className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap">
+              <span
+                key={amenity}
+                className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap"
+              >
                 {amenity}
               </span>
             ))}

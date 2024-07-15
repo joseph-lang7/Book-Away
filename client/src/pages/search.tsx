@@ -5,10 +5,14 @@ import { useState } from "react";
 import SearchResultsCard from "../components/search-results-card/search-results-card";
 import Pagination from "../components/pagination/pagination";
 import StarRatingFilter from "../components/star-rating-filter/star-rating-filter";
+import ListingTypesFilter from "../components/listing-types-filter/listing-types-filter";
 const Search = () => {
   const search = useSearchContext();
   const [page, setPage] = useState<number>(1);
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
+  const [selectedListingTypes, setSelectedListingTypes] = useState<string[]>(
+    []
+  );
 
   const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const starRating = event.target.value;
@@ -16,6 +20,16 @@ const Search = () => {
       event.target.checked
         ? [...prevStars, starRating]
         : prevStars.filter((star) => star !== starRating)
+    );
+  };
+  const handleListingTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const listingType = event.target.value;
+    setSelectedListingTypes((prevTypes) =>
+      event.target.checked
+        ? [...prevTypes, listingType]
+        : prevTypes.filter((type) => type !== listingType)
     );
   };
 
@@ -27,6 +41,7 @@ const Search = () => {
     childCount: search.childCount.toString(),
     page: page.toString(),
     stars: selectedStars,
+    types: selectedListingTypes,
   };
   const { data: listingData } = useQuery(["searchListings", searchParams], () =>
     apiClient.searchListings(searchParams)
@@ -41,6 +56,10 @@ const Search = () => {
           <StarRatingFilter
             selectedStars={selectedStars}
             onChange={handleStarsChange}
+          />
+          <ListingTypesFilter
+            selectedListingTypes={selectedListingTypes}
+            onChange={handleListingTypeChange}
           />
         </div>
       </div>
