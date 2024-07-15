@@ -17,6 +17,7 @@ const Search = () => {
   );
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
+  const [sortOption, setSortOption] = useState<string | undefined>();
 
   const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const starRating = event.target.value;
@@ -56,6 +57,7 @@ const Search = () => {
     types: selectedListingTypes,
     amenities: selectedAmenities,
     maxPrice: selectedPrice?.toString(),
+    sortOption: sortOption,
   };
   const { data: listingData } = useQuery(["searchListings", searchParams], () =>
     apiClient.searchListings(searchParams)
@@ -91,6 +93,20 @@ const Search = () => {
             {listingData?.pagination.total} Listings found
             {search.destination ? ` in ${search.destination}` : ""}
           </span>
+          <select
+            className="p-2 rounded-md border"
+            value={sortOption}
+            onChange={(event) => setSortOption(event.target.value)}
+          >
+            <option value="">Sort By</option>
+            <option value="starRating">Star Rating</option>
+            <option value="pricePerNightAsc">
+              Price Per Night (low to high)
+            </option>
+            <option value="pricePerNightDesc">
+              Price Per Night (high to low)
+            </option>
+          </select>
         </div>
         {listingData?.data.map((listing) => (
           <SearchResultsCard key={listing._id} listing={listing} />
