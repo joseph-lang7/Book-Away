@@ -138,6 +138,9 @@ export const searchListings = async (
 
   searchParams.types?.forEach((type) => queryParams.append("types", type));
   searchParams.stars?.forEach((star) => queryParams.append("stars", star));
+  searchParams.amenities?.forEach((amenity) =>
+    queryParams.append("amenities", amenity)
+  );
   queryParams.append("maxPrice", searchParams.maxPrice || "");
   queryParams.append("sortOption", searchParams.sortOption || "");
 

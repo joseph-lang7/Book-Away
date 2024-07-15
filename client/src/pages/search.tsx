@@ -6,6 +6,7 @@ import SearchResultsCard from "../components/search-results-card/search-results-
 import Pagination from "../components/pagination/pagination";
 import StarRatingFilter from "../components/star-rating-filter/star-rating-filter";
 import ListingTypesFilter from "../components/listing-types-filter/listing-types-filter";
+import AmenitiesFilter from "../components/amenities-filter/amenities-filter";
 const Search = () => {
   const search = useSearchContext();
   const [page, setPage] = useState<number>(1);
@@ -13,6 +14,7 @@ const Search = () => {
   const [selectedListingTypes, setSelectedListingTypes] = useState<string[]>(
     []
   );
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
 
   const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const starRating = event.target.value;
@@ -32,6 +34,14 @@ const Search = () => {
         : prevTypes.filter((type) => type !== listingType)
     );
   };
+  const handleAmenityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const amenity = event.target.value;
+    setSelectedAmenities((prevAmenities) =>
+      event.target.checked
+        ? [...prevAmenities, amenity]
+        : prevAmenities.filter((prevAmenity) => prevAmenity !== amenity)
+    );
+  };
 
   const searchParams = {
     destination: search.destination,
@@ -42,6 +52,7 @@ const Search = () => {
     page: page.toString(),
     stars: selectedStars,
     types: selectedListingTypes,
+    amenities: selectedAmenities,
   };
   const { data: listingData } = useQuery(["searchListings", searchParams], () =>
     apiClient.searchListings(searchParams)
@@ -60,6 +71,10 @@ const Search = () => {
           <ListingTypesFilter
             selectedListingTypes={selectedListingTypes}
             onChange={handleListingTypeChange}
+          />
+          <AmenitiesFilter
+            selectedAmenities={selectedAmenities}
+            onChange={handleAmenityChange}
           />
         </div>
       </div>
