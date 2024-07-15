@@ -118,6 +118,11 @@ export type SearchParams = {
   adultCount?: string;
   childCount?: string;
   page?: string;
+  amenities?: string[];
+  types?: string[];
+  stars?: string[];
+  maxPrice?: string;
+  sortOption?: string;
 };
 
 export const searchListings = async (
@@ -130,6 +135,11 @@ export const searchListings = async (
   queryParams.append("adultCount", searchParams.adultCount || "");
   queryParams.append("childCount", searchParams.childCount || "");
   queryParams.append("page", searchParams.page || "");
+
+  searchParams.types?.forEach((type) => queryParams.append("types", type));
+  searchParams.stars?.forEach((star) => queryParams.append("stars", star));
+  queryParams.append("maxPrice", searchParams.maxPrice || "");
+  queryParams.append("sortOption", searchParams.sortOption || "");
 
   const response = await fetch(`${API_URL}/api/listings/search?${queryParams}`);
 
