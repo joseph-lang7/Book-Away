@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import Listing from "../models/listing";
 import { ListingSearchResponse } from "../../../shared/types";
+import { param, validationResult } from "express-validator";
 const router = express.Router();
 
 router.get("/search", async (req: Request, res: Response) => {
@@ -102,4 +103,22 @@ const constructSearchQuery = (queryParams: any) => {
   return constructedQuery;
 };
 
+router.get(
+  "/:id",
+  [param("id").notEmpty().withMessage("Listing ID is required")],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const id = req.params.id.toString();
+    try {
+      const listing = await Listing.findById(id);
+      res.json(listing);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching listing" });
+    }
+  }
+);
 export default router;

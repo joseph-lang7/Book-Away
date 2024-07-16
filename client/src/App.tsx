@@ -12,6 +12,7 @@ import { useAppContext } from "./contexts/app-context";
 import MyListings from "./pages/my-listings";
 import EditListing from "./pages/edit-listing";
 import Search from "./pages/search";
+import Detail from "./pages/detail";
 function App() {
   const isLoggedIn = useAppContext();
   return (
@@ -30,6 +31,14 @@ function App() {
           element={
             <Layout>
               <Search />
+            </Layout>
+          }
+        />
+        <Route
+          path="/detail/:listingId"
+          element={
+            <Layout>
+              <Detail />
             </Layout>
           }
         />

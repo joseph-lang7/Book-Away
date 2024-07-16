@@ -1,6 +1,7 @@
 import { RegisterFormData } from "./pages/register";
 import { SignInFormData } from "./pages/sign-in";
 import { ListingSearchResponse, ListingType } from "../../shared/types";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const register = async (formData: RegisterFormData) => {
@@ -148,6 +149,18 @@ export const searchListings = async (
 
   if (!response.ok) {
     throw new Error("Error fetching listings");
+  }
+
+  return response.json();
+};
+
+export const fetchListingById = async (
+  listingId: string
+): Promise<ListingType> => {
+  const response = await fetch(`${API_URL}/api/listings/${listingId}`);
+
+  if (!response.ok) {
+    throw new Error("Error fetching listing");
   }
 
   return response.json();
