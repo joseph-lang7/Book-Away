@@ -27,3 +27,15 @@ test("should show listing search results", async ({ page }) => {
   await expect(page.getByText("Test Listing")).toBeVisible();
   await expect(page.getByText("Test description")).toBeVisible();
 });
+
+test("should show listing detail", async ({ page }) => {
+  await page.goto(UI_URL);
+  await page.getByPlaceholder("Where are you going?").fill("Test City");
+  await page.getByRole("button", { name: "Search" }).click();
+  await expect(page.getByText("Listings found in Test City")).toBeVisible();
+  await expect(page.getByText("Test Listing")).toBeVisible();
+  await expect(page.getByText("Test description")).toBeVisible();
+  await page.getByRole("link", { name: "View Details" }).nth(0).click();
+  await expect(page).toHaveURL(/detail/);
+  await expect(page.getByRole("button", { name: "Book Now" })).toBeVisible();
+});
