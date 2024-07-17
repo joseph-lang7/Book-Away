@@ -13,6 +13,7 @@ import MyListings from "./pages/my-listings";
 import EditListing from "./pages/edit-listing";
 import Search from "./pages/search";
 import Detail from "./pages/detail";
+import Booking from "./pages/booking";
 function App() {
   const isLoggedIn = useAppContext();
   return (
@@ -65,6 +66,18 @@ function App() {
               element={
                 <Layout>
                   <AddListing />
+                </Layout>
+              }
+            />
+          </>
+        )}
+        {isLoggedIn && (
+          <>
+            <Route
+              path="/listing/:listingId/booking"
+              element={
+                <Layout>
+                  <Booking />
                 </Layout>
               }
             />
