@@ -35,7 +35,7 @@ const SearchResultsCard = ({ listing }: Props) => {
         <div>
           <div className="line-clamp-4">{listing.description}</div>
         </div>
-        <div className="grid grid-cols-2 items-end whitespace-nowrap">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-end whitespace-nowrap">
           <div className="flex gap-1 items-center">
             {listing.amenities.slice(0, 3).map((amenity) => (
               <span
@@ -50,7 +50,7 @@ const SearchResultsCard = ({ listing }: Props) => {
                 `+${listing.amenities.length - 3} more`}
             </span>
           </div>
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-start md:items-end gap-1">
             <span className="font-bold">
               ${listing.pricePerNight} per night
             </span>

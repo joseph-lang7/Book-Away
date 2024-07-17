@@ -47,7 +47,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="-mt-8 p-5 bg-yellow-500 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
+      className="-mt-8 p-5 bg-yellow-500 rounded shadow-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
     >
       <label>
         Destination:

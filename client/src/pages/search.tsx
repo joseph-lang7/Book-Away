@@ -64,7 +64,7 @@ const Search = () => {
   );
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div className="rounded-lg border border-slate-300 p-5 h-fit sticky top-10">
+      <div className="rounded-lg border border-slate-300 p-5 h-fit sticky top-10 hidden lg:block">
         <div className="space-y-5">
           <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">
             Filter by:
@@ -89,12 +89,12 @@ const Search = () => {
       </div>
       <div className="flex flex-col gap-5">
         <div className="flex justify-between items-center">
-          <span className="text-xl font-bold">
+          <span className="text-xl font-bold w-1/2">
             {listingData?.pagination.total} Listings found
             {search.destination ? ` in ${search.destination}` : ""}
           </span>
           <select
-            className="p-2 rounded-md border"
+            className="p-2 rounded-md border w-1/2"
             value={sortOption}
             onChange={(event) => setSortOption(event.target.value)}
           >
