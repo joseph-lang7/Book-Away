@@ -9,10 +9,27 @@ const SearchBar = () => {
   const search = useSearchContext();
   const [destination, setDestination] = useState<string>(search.destination);
   const [checkIn, setCheckIn] = useState<Date>(search.checkIn);
-  const [checkOut, setCheckOut] = useState<Date>(search.checkIn);
-  const [adultCount, setAdultCount] = useState<number>(search.adultCount);
+  const [checkOut, setCheckOut] = useState<Date>(() => {
+    const storedDate = sessionStorage.getItem("checkOut");
+    const initialDate = storedDate ? new Date(storedDate) : new Date();
+    initialDate.setDate(initialDate.getDate() + 1);
+    return initialDate;
+  });
+  const [adultCount, setAdultCount] = useState<number>(1);
   const [childCount, setChildCount] = useState<number>(search.childCount);
 
+  const currentDate = new Date();
+  const clearedDateDefault = new Date(
+    currentDate.getTime() + 24 * 60 * 60 * 1000
+  );
+
+  const handleClear = () => {
+    setDestination("");
+    setCheckIn(new Date());
+    setCheckOut(clearedDateDefault);
+    setAdultCount(1);
+    setChildCount(0);
+  };
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     search.saveSearchValues(
@@ -30,74 +47,95 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="-mt-8 p-3 bg-yellow-500 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
+      className="-mt-8 p-5 bg-yellow-500 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
     >
-      <div className="flex flex-row items-center flex-1 bg-white p-2">
-        <MdTravelExplore size={25} className="mr-2" />
-        <input
-          type="text"
-          placeholder="Where are you going?"
-          className="text-md w-full focus:outline-none"
-          value={destination}
-          onChange={(event) => setDestination(event.target.value)}
-        />
-      </div>
+      <label>
+        Destination:
+        <div className="flex flex-row items-center flex-1 bg-white p-2">
+          <MdTravelExplore size={25} className="mr-2" />
+          <input
+            type="text"
+            placeholder="Where are you going?"
+            className="text-md w-full focus:outline-none"
+            value={destination}
+            onChange={(event) => setDestination(event.target.value)}
+          />
+        </div>
+      </label>
 
-      <div className="flex bg-white px-2 py-1 gap-2">
-        <label className="items-center flex">
-          Adults:
-          <input
-            type="number"
-            className="w-full p-1 focus:outline-none font-bold"
-            min={1}
-            max={20}
-            onChange={(event) => setAdultCount(parseInt(event.target.value))}
-          />
-        </label>
-        <label className="items-center flex">
-          Children:
-          <input
-            type="number"
-            className="w-full p-1 focus:outline-none font-bold"
-            min={0}
-            max={20}
-            onChange={(event) => setChildCount(parseInt(event.target.value))}
+      <label>
+        People:
+        <div className="flex bg-white px-2 py-1 gap-2">
+          <label className="items-center flex">
+            Adults:
+            <input
+              type="number"
+              className="w-full p-1 focus:outline-none font-bold"
+              min={1}
+              max={20}
+              value={adultCount}
+              onChange={(event) => setAdultCount(parseInt(event.target.value))}
+            />
+          </label>
+          <label className="items-center flex">
+            Children:
+            <input
+              type="number"
+              className="w-full p-1 focus:outline-none font-bold"
+              min={0}
+              max={20}
+              value={childCount}
+              onChange={(event) => setChildCount(parseInt(event.target.value))}
+            />
+          </label>
+        </div>
+      </label>
+      <div>
+        <label>
+          Check-In:
+          <DatePicker
+            selected={checkIn}
+            onChange={(date) => setCheckIn(date as Date)}
+            selectsStart
+            startDate={checkIn}
+            endDate={checkOut}
+            minDate={minDate}
+            maxDate={maxDate}
+            placeholderText="Check-In Date"
+            className="min-w-full bg-white p-2 focus:outline-none"
+            wrapperClassName="min-w-full"
           />
         </label>
       </div>
       <div>
-        <DatePicker
-          selected={checkIn}
-          onChange={(date) => setCheckIn(date as Date)}
-          selectsStart
-          startDate={checkIn}
-          endDate={checkOut}
-          minDate={minDate}
-          maxDate={maxDate}
-          placeholderText="Check-In Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-full"
-        />
-      </div>
-      <div>
-        <DatePicker
-          selected={checkOut}
-          onChange={(date) => setCheckOut(date as Date)}
-          selectsStart
-          startDate={checkIn}
-          endDate={checkOut}
-          minDate={minDate}
-          maxDate={maxDate}
-          placeholderText="Check-In Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-full"
-        />
+        <label>
+          Check-Out:
+          <DatePicker
+            selected={checkOut}
+            onChange={(date) => setCheckOut(date as Date)}
+            selectsStart
+            startDate={checkIn}
+            endDate={checkOut}
+            minDate={minDate}
+            maxDate={maxDate}
+            placeholderText="Check-In Date"
+            className="min-w-full bg-white p-2 focus:outline-none"
+            wrapperClassName="min-w-full"
+          />
+        </label>
       </div>
       <div className="flex gap-1">
-        <button className="w-2/3 bg-blue-600 text-white h-full p-2 font-bold text-xl">
+        <button
+          type="submit"
+          className="w-2/3 bg-blue-600 text-white h-full p-2 font-bold text-xl hover:bg-black transition-all duration-500 rounded-md"
+        >
           Search
         </button>
-        <button className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl">
+        <button
+          onClick={() => handleClear()}
+          type="button"
+          className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-black transition-all duration-500 rounded-md"
+        >
           Clear
         </button>
       </div>
