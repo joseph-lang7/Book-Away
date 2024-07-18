@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon",
-    "build": "npm install && npx tsc",
+    "build": "npm install && NODE_ENV=production npx tsc",
     "start": "node ./dist/src/index.js"
   },
   "author": "",
