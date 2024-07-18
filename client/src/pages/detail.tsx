@@ -8,7 +8,7 @@ const Detail = () => {
 
   const { data: listing } = useQuery(
     "fetchListingById",
-    () => apiClient.fetchMyListingById(listingId || ""),
+    () => apiClient.fetchListingById(listingId || ""),
     {
       enabled: !!listingId,
     }
