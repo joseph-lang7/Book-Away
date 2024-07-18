@@ -211,4 +211,25 @@ router.post(
   }
 );
 
+router.delete(
+  "/:listingId",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const listingId = req.params.listingId;
+    try {
+      const listing = await Listing.findOneAndDelete({
+        _id: listingId,
+      });
+      if (!listing) {
+        return res.status(400).json({ message: "listing not found" });
+      }
+      res
+        .status(200)
+        .json({ message: "Listing deleted successfully", listing });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
+);
 export default router;

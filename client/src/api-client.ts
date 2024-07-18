@@ -217,6 +217,16 @@ export const createBooking = async (formData: BookingFormData) => {
   );
 
   if (!response.ok) {
-    throw new Error("Error booking room");
+    throw new Error("Error booking listing");
+  }
+};
+
+export const deleteListing = async (listingId: string): Promise<void> => {
+  const response = await fetch(`${API_URL}/api/listings/${listingId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error deleting listing");
   }
 };
