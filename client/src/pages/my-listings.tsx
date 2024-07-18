@@ -53,7 +53,6 @@ const MyListings = () => {
         setShowDeleteModal(false);
         setListingIdToDelete(null);
         refetch();
-        console.log(showDeleteModal);
       } catch (error) {
         console.error(error);
         showToast({

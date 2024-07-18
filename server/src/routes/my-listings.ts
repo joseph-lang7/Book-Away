@@ -81,7 +81,6 @@ router.get("/:id", verifyToken, async (req: Request, res: Response) => {
       userId: req.userId,
     });
     res.json(listing);
-    console.log(listing);
   } catch (error) {
     res.status(500).json({ message: "Error fetching listings" });
   }
