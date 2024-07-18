@@ -38,7 +38,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     onSuccess: () => {
       showToast({
         type: "SUCCESS",
-        message: `Thank you, ${currentUser.firstName}`,
+        message: `Thank you, ${currentUser.firstName}!`,
       });
       navigate("/my-bookings");
     },
