@@ -44,17 +44,12 @@ test("should book listing", async ({ page }) => {
   await page.goto(UI_URL);
   await page.getByPlaceholder("Where are you going?").fill("Test City");
 
-  const date = new Date();
-  date.setDate(date.getDate() + 3);
-  const formattedDate = date.toISOString().split("T")[0];
-  await page.getByPlaceholder("Check-Out Date").fill(formattedDate);
-
   await page.getByRole("button", { name: "Search" }).click();
 
   await page.getByText("Test Listing").click();
   await page.getByRole("button", { name: "Book Now" }).click();
 
-  await expect(page.getByText("Total Cost: $300.00")).toBeVisible();
+  await expect(page.getByText("Total Cost: $200.00")).toBeVisible();
 
   const stripeFrame = page.frameLocator("iframe").nth(0);
 

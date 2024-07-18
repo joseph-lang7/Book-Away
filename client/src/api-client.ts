@@ -4,8 +4,8 @@ import {
   ListingSearchResponse,
   ListingType,
   PaymentIntentResponse,
-} from "../../shared/types";
-import { UserType } from "../../shared/types";
+  UserType,
+} from "./shared/types";
 import { BookingFormData } from "./components/booking-form/booking-form";
 const API_URL = import.meta.env.VITE_API_URL;
 

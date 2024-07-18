@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import Listing from "../models/listing";
-import { BookingType, ListingSearchResponse } from "../../../shared/types";
+import { BookingType, ListingSearchResponse } from "../../shared/types";
 import { param, validationResult } from "express-validator";
 import Stripe from "stripe";
 import verifyToken from "../middleware/auth";

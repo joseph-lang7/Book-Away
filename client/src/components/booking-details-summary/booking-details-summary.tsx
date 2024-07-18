@@ -1,4 +1,4 @@
-import { ListingType } from "../../../../shared/types";
+import { ListingType } from "../../shared/types";
 
 type Props = {
   checkIn: Date;

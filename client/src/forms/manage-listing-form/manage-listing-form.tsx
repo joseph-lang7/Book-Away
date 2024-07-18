@@ -4,7 +4,7 @@ import TypeSection from "./components/type-section";
 import AmenitiesSection from "./components/amenities-section";
 import GuestsSection from "./components/guests-section";
 import ImagesSection from "./components/images-section";
-import { ListingType } from "../../../../shared/types";
+import { ListingType } from "../../shared/types";
 import { useEffect } from "react";
 export type ListingFormData = {
   name: string;

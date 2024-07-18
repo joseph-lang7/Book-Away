@@ -1,5 +1,5 @@
 import { AiFillStar } from "react-icons/ai";
-import { ListingType } from "../../../../shared/types";
+import { ListingType } from "../../shared/types";
 import { Link } from "react-router-dom";
 
 type Props = {
