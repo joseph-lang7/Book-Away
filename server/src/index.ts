@@ -32,6 +32,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/my-listings", myListingRoutes);
 app.use("/api/listings", listingRoutes);
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("Server running on port 3001");
 });
