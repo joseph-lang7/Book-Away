@@ -14,6 +14,7 @@ import EditListing from "./pages/edit-listing";
 import Search from "./pages/search";
 import Detail from "./pages/detail";
 import Booking from "./pages/booking";
+import Home from "./pages/home";
 function App() {
   const isLoggedIn = useAppContext();
   return (
@@ -23,7 +24,7 @@ function App() {
           path="/"
           element={
             <Layout>
-              <p>Home Page</p>
+              <Home />
             </Layout>
           }
         />
