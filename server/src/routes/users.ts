@@ -2,6 +2,7 @@ import express from "express";
 import { Request, Response } from "express";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
+import Listing from "../models/listing";
 const router = express.Router();
 import { check, validationResult } from "express-validator";
 import verifyToken from "../middleware/auth";
@@ -65,5 +66,26 @@ router.get("/me", verifyToken, async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+router.get(
+  "/my-bookings/:userId",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID parameter is required" });
+    }
+
+    try {
+      const listings = await Listing.find({ "bookings.userId": userId });
+      console.log(listings);
+      res.status(200).json(listings);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
+);
 
 export default router;

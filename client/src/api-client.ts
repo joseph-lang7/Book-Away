@@ -230,3 +230,14 @@ export const deleteListing = async (listingId: string): Promise<void> => {
     throw new Error("Error deleting listing");
   }
 };
+
+export const fetchMyBookings = async (userId: string) => {
+  const response = await fetch(`${API_URL}/api/users/my-bookings/${userId}`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching bookings");
+  }
+  console.log(response);
+  return response.json();
+};
