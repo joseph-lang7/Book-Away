@@ -1,7 +1,6 @@
 import Header from "../components/header/header";
 import Hero from "../components/hero/hero";
 import Footer from "../components/footer/footer";
-import SearchBar from "../components/search-bar/search-bar";
 
 interface Props {
   children: React.ReactNode;
@@ -12,9 +11,6 @@ const Layout = ({ children }: Props) => {
     <div className="flex flex-col min-h-screen">
       <Header />
       <Hero />
-      <div className="container mx-auto">
-        <SearchBar />
-      </div>
       <main className="container mx-auto py-10 flex-1">{children}</main>
       <Footer />
     </div>

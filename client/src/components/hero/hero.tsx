@@ -1,13 +1,18 @@
+import SearchBar from "../search-bar/search-bar";
+
 const Hero = () => {
   return (
-    <div className="bg-blue-800 pb-16">
-      <div className="container mx-auto flex flex-col gap-2">
-        <h1 className="text-5xl text-white font-bold">
-          Book your next vacation
+    <div className="w-full max-w-full h-[800px] relative">
+      <img
+        src="/beach.jpg"
+        alt="beach"
+        className="w-full h-full object-cover brightness-[45%]"
+      />
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-14">
+        <h1 className="text-white text-4xl md:text-6xl font-bold text-center">
+          Relax, you are booking with BookAway
         </h1>
-        <p className="text-2xl text-white">
-          Find the best prices for your next trip
-        </p>
+        <SearchBar />
       </div>
     </div>
   );
