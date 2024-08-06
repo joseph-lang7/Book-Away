@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://skillicons.dev/icons?i=react,tailwind,express,nodejs,mongodb" />
+    <img src="https://skillicons.dev/icons?i=react,tailwind,express,nodejs,mongodb,typescript" />
 
 <h1 align="center" style="color:white;">
 Book Away
