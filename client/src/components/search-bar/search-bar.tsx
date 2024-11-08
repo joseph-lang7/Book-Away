@@ -47,7 +47,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-5 m-5 bg-white rounded shadow-md grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
+      className="p-5 m-5 bg-white rounded shadow-md grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 items-center gap-4 justify-center"
     >
       <label>
         Destination:
@@ -124,17 +124,17 @@ const SearchBar = () => {
           />
         </label>
       </div>
-      <div className="flex gap-1">
+      <div className="flex gap-1 self-end">
         <button
           type="submit"
-          className="w-2/3 bg-blue-600 text-white h-full p-2 font-bold text-xl hover:bg-black transition-all duration-500 rounded-md"
+          className="w-2/3 bg-blue-600 text-white p-2 font-bold text-xl hover:bg-black transition-all duration-500 rounded-md h-full"
         >
           Search
         </button>
         <button
           onClick={() => handleClear()}
           type="button"
-          className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-black transition-all duration-500 rounded-md"
+          className="w-1/3 bg-red-600 text-white p-2 font-bold text-xl hover:bg-black transition-all duration-500 rounded-md h-full"
         >
           Clear
         </button>
